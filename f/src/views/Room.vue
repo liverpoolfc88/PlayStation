@@ -124,7 +124,7 @@
   </v-container>
 </template>
 <script>
-const axios = require('axios').default
+// const axios = require('axios').default
 export default {
   data () {
     return {

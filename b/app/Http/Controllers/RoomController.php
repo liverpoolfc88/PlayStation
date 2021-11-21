@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use phpseclib\System\SSH\Agent\Identity;
 use App\Room;
+use App\RoomTime;
 
 
 class RoomController extends Controller
@@ -18,6 +19,53 @@ class RoomController extends Controller
     public function index()
     {
         return Room::all();
+    }
+
+    public function busy(Request $request)
+    {
+        $room_id = $request['id'];
+        $user_id = Auth::id();
+
+        $model = Room::find($room_id);
+
+
+
+        if ($model->status == 0) {
+            $model_time = new RoomTime();
+            $model_time->room_id = $room_id;
+            $model_time->on_time = time();
+            $model_time->room_sum = $model->price;
+            $model_time->created_by = $user_id;
+            $model_time->save();
+        }else {
+            $model_time = RoomTime::where('room_id', $room_id)->whereNull('off_time')->first();
+            $model_time->off_time = time();
+            $model_time->updated_by = $user_id;
+            $model_time->time_range = $model_time->off_time - $model_time->on_time;
+            $model_time->sum = $model_time->time_range * $model_time->room_sum;
+            $model_time->save();
+        }
+
+        $model->status = ($model->status == 1) ? 0 : 1;
+        $model->save();
+
+//       $model_time->room_id = $request['id'];
+//       $model_time->room_id = $request['id'];
+
+
+        return [$request['id'], $model_time];
+    }
+
+    public function work(Request $request)
+    {
+        $id = Auth::id();
+
+        $type = $request['type'];
+
+        $model = ($type == 'all') ? Room::where('user_id', $id) : Room::where('user_id', $id)->where('status', $type);
+
+        return $model->get();
+
     }
 
     /**
@@ -33,7 +81,7 @@ class RoomController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -44,7 +92,7 @@ class RoomController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -55,7 +103,7 @@ class RoomController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -66,8 +114,8 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
 
@@ -111,7 +159,7 @@ class RoomController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

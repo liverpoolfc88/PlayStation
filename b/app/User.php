@@ -3,13 +3,17 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use LaratrustUserTrait;
+    use HasApiTokens, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -37,4 +41,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function findAndValidateForPassport($username, $password)
+    {
+        $user = $this->where('username', $username)->first();
+
+        if ($user && Hash::check($password, $user->password)) {
+            return $user;
+        }
+    }
+    public function dealers()
+    {
+        return $this->hasOne('App\Dealer', 'id', 'dealer_id');
+    }
+    // public function roles()
+    // {
+    //     return $this->hasOne('App\Role', 'id', 'role_id');
+    //     //return $this->hasmany('App\Role', 'id', 'role_id');
+    // }
 }

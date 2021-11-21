@@ -13,7 +13,32 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'GWM Portal'),
+
+    'APP_SAP_S4_WSDL' => env('APP_SAP_S4_WSDL'),
+    'APP_SAP_S4_LOGIN' => env('APP_SAP_S4_LOGIN'),
+    'APP_SAP_S4_PASSWORD' => env('APP_SAP_S4_PASSWORD'),
+    'APP_SAP_S4_LOCATION' => env('APP_SAP_S4_LOCATION'),
+
+    'APP_SAP_S5_WSDL' => env('APP_SAP_S5_WSDL'),
+    'APP_SAP_S5_LOGIN' => env('APP_SAP_S5_LOGIN'),
+    'APP_SAP_S5_PASSWORD' => env('APP_SAP_S5_PASSWORD'),
+    'APP_SAP_S5_LOCATION' => env('APP_SAP_S5_LOCATION'),
+
+    'APP_SAP_S6_WSDL' => env('APP_SAP_S6_WSDL'),
+    'APP_SAP_S6_LOGIN' => env('APP_SAP_S6_LOGIN'),
+    'APP_SAP_S6_PASSWORD' => env('APP_SAP_S6_PASSWORD'),
+    'APP_SAP_S6_LOCATION' => env('APP_SAP_S6_LOCATION'),
+
+    'APP_SAP_S6T_WSDL' => env('APP_SAP_S6T_WSDL'),
+    'APP_SAP_S6T_LOGIN' => env('APP_SAP_S6T_LOGIN'),
+    'APP_SAP_S6T_PASSWORD' => env('APP_SAP_S6T_PASSWORD'),
+    'APP_SAP_S6T_LOCATION' => env('APP_SAP_S6T_LOCATION'),
+
+    'APP_SAP_WSDL' => env('APP_SAP_WSDL'),
+    'APP_SAP_LOGIN' => env('APP_SAP_LOGIN'),
+    'APP_SAP_PASSWORD' => env('APP_SAP_PASSWORD'),
+    'APP_SAP_LOCATION' => env('APP_SAP_LOCATION'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +77,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://test-gwm.local/'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -67,7 +92,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // 'timezone' => 'UTC',
+    'timezone' => 'Asia/Tashkent',
 
     /*
     |--------------------------------------------------------------------------
@@ -139,6 +165,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        Laratrust\LaratrustServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -161,7 +188,8 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        Artisaninweb\SoapWrapper\ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -175,7 +203,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Laravel\Passport\PassportServiceProvider::class,
 
     ],
 
@@ -192,6 +219,7 @@ return [
 
     'aliases' => [
 
+        'Laratrust'   => Laratrust\LaratrustFacade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -228,6 +256,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'SoapWrapper' => Artisaninweb\SoapWrapper\Facade\SoapWrapper::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

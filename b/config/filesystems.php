@@ -65,6 +65,28 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'sftp' => [
+            'driver' => 'sftp',
+            //'host' => env('SFTP_HOST'), //'example.com',
+            // 'username' => env('SFTP_USERNAME'),
+            // 'password' => env('SFTP_PASSWORD'),
+            'host' => '198.208.3.9', 
+            'username' => 'mmftpopeluz',
+            'password' => '',
+        
+                // Settings for SSH key based authentication...
+            'privateKey' => storage_path('app').env('SFTP_KEY_PATH'),
+                // 'password' => 'encryption-password',
+
+            //own changes
+            'visibility' => 'public',
+            'permPublic' => 0755,
+            'directoryPerm' => 0755,
+        
+            //own changes
+
+        ],
+
     ],
 
     /*
