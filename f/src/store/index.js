@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     strict: true,
     state: {
-        backend_url: 'http://plstation.sar/',
+        backend_url: 'http://playStations.local/',
         access_token: Cookies.get('access_token') || "null",
         locale: Cookies.get('locale') || 'en',
         user: null,
