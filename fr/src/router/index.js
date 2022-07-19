@@ -121,47 +121,39 @@ const router = new VueRouter({
   routes,
 });
 
-
 router.beforeEach((to, from, next) => {
-  if (to.path !== '/login' && !storage.get('access_token')) next('/login')
-  else next()
-})
-
-export default router
-
-// router.beforeEach((to, from, next) => {
-//   var access_token = store.getters.getAccessToken();
-//   let localStorage = window.localStorage;
-//   const now = new Date();
-//   let expire_token = localStorage.getItem('expire_token', now.getTime());
+  var access_token = store.getters.getAccessToken();
+  let localStorage = window.localStorage;
+  const now = new Date();
+  let expire_token = localStorage.getItem('expire_token', now.getTime());
   
-//   if(!(expire_token == 'null' || expire_token == null) && expire_token < now.getTime() - 10800000 && to.fullPath != '/login'){
-//     store.dispatch("setUser", null);
-//     store.dispatch("setPermissions", null);
-//     //store.dispatch("setRole", null);
-//     store.dispatch("setAccessToken", null);
-//     // Cookies.remove("access_token");
-//     next({
-//       path: '/login',
-//     });
-//   }
+  if(!(expire_token == 'null' || expire_token == null) && expire_token < now.getTime() - 10800000 && to.fullPath != '/login'){
+    store.dispatch("setUser", null);
+    store.dispatch("setPermissions", null);
+    //store.dispatch("setRole", null);
+    store.dispatch("setAccessToken", null);
+    // Cookies.remove("access_token");
+    next({
+      path: '/login',
+    });
+  }
   
 
-//   if (!access_token && to.fullPath != '/login') {
-//     store.dispatch('setRedirectUrl', to.fullPath);
-//     localStorage.setItem('expire_token', now.getTime());
-//     next({
-//       path: '/login',
-//     });
-//   }
-//   else if (!to.meta.permission || store.getters.checkPermission(to.meta.permission)) {
-//     localStorage.setItem('expire_token', now.getTime());
-//     next();
-//   }
-//   else {
-//     localStorage.setItem('expire_token', now.getTime());
-//     next('/403');
-//   }
-// });
+  if (!access_token && to.fullPath != '/login') {
+    store.dispatch('setRedirectUrl', to.fullPath);
+    localStorage.setItem('expire_token', now.getTime());
+    next({
+      path: '/login',
+    });
+  }
+  else if (!to.meta.permission || store.getters.checkPermission(to.meta.permission)) {
+    localStorage.setItem('expire_token', now.getTime());
+    next();
+  }
+  else {
+    localStorage.setItem('expire_token', now.getTime());
+    next('/403');
+  }
+});
 
-// export default router;
+export default router;

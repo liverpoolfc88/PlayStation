@@ -1,7 +1,6 @@
 <template>
   <v-app id="inspire">
     <v-app-bar
-        v-if="(($route.path).includes('userhome')) ? true : false"
         app
         color="primary"
         dark
@@ -21,25 +20,6 @@
 
 
       <v-spacer></v-spacer>
-      <img v-if="$i18n.locale == 'en'" src= "/img/en-flag.png" class="mt-3" alt="GWM" style=" width: 20px; ">
-      <img v-if="$i18n.locale == 'ru'" src= "/img/ru-flag.png" class="mt-3" alt="GWM" style=" width: 20px; ">
-      <v-btn @click="en()" v-show="leng" text>
-        <span class="mt-2">{{ languages[$i18n.locale] }}</span>
-      </v-btn>
-      <!--      <img v-show="!leng" src="/img/ru-flag.png" alt="GWM" style=" width: 25px; "> -->
-      <v-btn @click="ru()" v-show="!leng" text>
-        <span class="mt-2">{{ languages[$i18n.locale] }}</span>
-      </v-btn>
-
-      <v-btn class="" icon color=" lighten-25">
-        <v-icon>mdi-account-circle</v-icon>
-      </v-btn>
-      <v-btn text><span class="mt-2">{{ user.username }}</span></v-btn>
-      <v-btn icon  @click="logout()">
-        <v-icon>mdi-exit-to-app</v-icon>
-      </v-btn>
-
-
 
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
@@ -54,51 +34,20 @@
       </v-btn>
       <template v-slot:extension>
         <v-tabs align-with-title>
-<!--          <v-tab > <router-link :to="'/userhome/' + 0">Bo'sh</router-link> </v-tab>-->
-<!--          <v-tab > <router-link :to="'/userhome/' + 1">Band</router-link> </v-tab>-->
-<!--          <v-tab > <router-link :to="'/userhome/' + 'all'">Hammasi</router-link> </v-tab>-->
-
-          <v-tab  :to="'/userhome/' + 0">Bo'sh</v-tab>
-          <v-tab  :to="'/userhome/' + 1">Band</v-tab>
-          <v-tab  :to="'/userhome/' + 'all'">Hammasi</v-tab>
-
+          <v-tab>Bo'sh</v-tab>
+          <v-tab>Band</v-tab>
+          <v-tab>Hammasi</v-tab>
         </v-tabs>
       </template>
     </v-app-bar>
-    <v-app-bar
-        v-if="(($route.path).includes('userhome')) ? false : true"
-        app
-        flat
-        height="50"
-        color="blue-grey lighten-4"
-    >
-      <v-btn icon @click="drawer = !drawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-      <v-spacer></v-spacer>
-<!--      <v-menu offset-y>-->
-<!--      </v-menu>-->
+<!--    <v-sheet-->
+<!--        id="scrolling-techniques-2"-->
+<!--        class="overflow-y-auto"-->
+<!--        max-height="600"-->
+<!--    >-->
+<!--      <v-container style="height: 1000px;"></v-container>-->
+<!--    </v-sheet>-->
 
-<!--      <img src= "/img/en-flag.png" alt="GWM" style=" width: 25px; ">-->
-      <img v-if="$i18n.locale == 'en'" src= "/img/en-flag.png" alt="GWM" style=" width: 25px; ">
-      <img v-if="$i18n.locale == 'ru'" src= "/img/ru-flag.png" alt="GWM" style=" width: 25px; ">
-      <v-btn @click="en()" v-show="leng" text>
-        {{ languages[$i18n.locale] }}
-      </v-btn>
-<!--      <img v-show="!leng" src="/img/ru-flag.png" alt="GWM" style=" width: 25px; "> -->
-      <v-btn @click="ru()" v-show="!leng" text>
-        {{ languages[$i18n.locale] }}
-      </v-btn>
-
-      <v-btn class="" icon color="blue-grey lighten-25">
-        <v-icon>mdi-account-circle</v-icon>
-      </v-btn>
-      <span>{{ user.username }}</span>
-      <v-btn icon color="red" @click="logout()">
-        <v-icon>mdi-exit-to-app</v-icon>
-      </v-btn>
-
-    </v-app-bar>
     <v-navigation-drawer
         app
         v-model="drawer"
@@ -156,7 +105,7 @@
                   :key="subItem.title"
                   link
                   :to="subItem.link"
-                  
+
               >
                 <v-icon color="blue">{{ subItem.icon }}</v-icon>
                 <v-list-item-content class="ml-5">
@@ -202,6 +151,7 @@ export default {
     date: new Date()
   }),
   computed: {
+
     user() {
       return this.storage.get('user');
     },
@@ -216,7 +166,7 @@ export default {
         {
           title: 'UserHome',
           icon: 'mdi-home-analytics',
-          link: "/userhome/all",
+          link: "/userhome",
           visible: true
         }
       ]
@@ -241,16 +191,14 @@ export default {
               title: this.$t("role.index"),
               icon: "mdi-account-group",
               link: "/roles",
-              // visible: this.$store.getters.checkPermission("roles-show"),
-              visible: true,
+              visible: this.$store.getters.checkPermission("roles-show"),
             },
             {
               // title: "Distribution centers",
               title: this.$t("permission.index"),
               icon: "mdi-account-multiple-check",
               link: "/permissions",
-              visible: true,
-              // visible: this.$store.getters.checkPermission("permissions-show"),
+              visible: this.$store.getters.checkPermission("permissions-show"),
             },
           ],
         },
