@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app style="
-    background-image: url(../img/ps.png);
+    /*background-image: url(../img/ps.png);*/
     /*background-position: center bottom;*/
     background-attachment: fixed;
     /*background-size: 100%;*/

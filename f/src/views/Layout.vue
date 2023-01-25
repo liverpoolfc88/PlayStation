@@ -114,7 +114,7 @@
             dark
         >
           <v-icon x-large color="primary">mdi-sony-playstation</v-icon>
-          <span style="color: #0a53be" class="brand-text">Play Station</span>
+          <span style="color: #0a53be" class="brand-text ml-5">PlayStations</span>
         </v-sheet>
       </template>
 
@@ -241,16 +241,14 @@ export default {
               title: this.$t("role.index"),
               icon: "mdi-account-group",
               link: "/roles",
-              // visible: this.$store.getters.checkPermission("roles-show"),
-              visible: true,
+              visible: this.$store.getters.checkPermission("roles-show"),
             },
             {
               // title: "Distribution centers",
               title: this.$t("permission.index"),
               icon: "mdi-account-multiple-check",
               link: "/permissions",
-              visible: true,
-              // visible: this.$store.getters.checkPermission("permissions-show"),
+              visible: this.$store.getters.checkPermission("permissions-show"),
             },
           ],
         },

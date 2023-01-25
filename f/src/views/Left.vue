@@ -13,9 +13,9 @@
           width="80%"
           dark
       >
-        <img src="/img/motors-logo.jpg" alt="GWM" class=""
-             style="height: 100%; width: 100%; padding: 5px">
-        <span style="color: #0a53be" class="brand-text"></span>
+<!--        <img src="/img/motors-logo.jpg" alt="GWM" class=""-->
+<!--             style="height: 100%; width: 100%; padding: 5px">-->
+<!--        <span style="color: #0a53be" class="brand-text"></span>-->
       </v-sheet>
     </template>
 

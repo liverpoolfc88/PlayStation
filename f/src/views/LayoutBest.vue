@@ -62,8 +62,8 @@
             width="80%"
             dark
         >
-          <v-icon x-large color="primary">mdi-sony-playstation</v-icon>
-          <span style="color: #0a53be" class="brand-text">Play Station</span>
+          <v-icon x-large color="primary">mdi-chef-hat</v-icon>
+          <span style="color: #0a53be" class="brand-text">Play Stationa</span>
         </v-sheet>
       </template>
 
