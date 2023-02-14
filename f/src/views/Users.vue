@@ -20,6 +20,9 @@
     <v-data-table
         dense
         fixed-header
+        :loading-text="$t('loadingText')"
+        :no-data-text="$t('noDataText')"
+        :loading="loading"
         :headers="headers"
         :items="users"
         :options.sync="dataTableOptions"
@@ -601,7 +604,7 @@ export default {
           });
     },
     getUserlist() {
-      // this.Loading = true;
+      this.Loading = true;
       this.$axios
           .post(this.$store.state.backend_url + "api/users", {
             pagination: this.dataTableOptions
@@ -609,11 +612,12 @@ export default {
           .then((res) => {
             this.server_items_length = res.data.total;
             this.users = res.data.data;
-            console.log(res.data);
+            // console.log(res.data);
+            this.loading = false;
           })
           .catch(function (error) {
             console.log(error);
-            // this.loading = false;
+            this.loading = false;
           });
     }
   },

@@ -56,8 +56,17 @@
 <!--              -->
 <!--            </v-card-text>-->
           </v-card>
+          
         </v-hover>
       </v-col>
+      <v-dialog v-model="loading" width="300" hide-overlay>
+        <v-card color="primary" dark>
+          <v-card-text>
+            {{ $t("loadingText") }}
+            <v-progress-linear indeterminate color="white" class="mb-0"></v-progress-linear>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
@@ -66,6 +75,7 @@
 export default {
   data () {
     return {
+      loading: false,
       room: [],
     }
   },
@@ -86,22 +96,24 @@ export default {
           })
     },
     getRoom () {
-      // this.Loading = true
+      this.loading = true;
+      console.log(this.loading);
       axios
           .post(this.$store.state.backend_url + 'api/room/work', {type: this.$route.params.type})
           .then((response) => {
-            console.log(this.$route.params.type);
+            // console.log(this.$route.params.type);
             this.room = response.data
-            console.log(this.room);
-            // this.Loading = false
+            // console.log(this.room);
+            this.loading = false;
+            console.log(this.loading);
           })
           .catch(function (error) {
             console.error(error)
-            // this.Loading = false
+            this.loading = false
           })
     }
   },
-  mounted () {
+  mounted () {   
     this.getRoom()
   }
 }

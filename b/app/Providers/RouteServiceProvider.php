@@ -44,10 +44,19 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
+        $this->mapApiTwoRoutes();//<---this one
+
         $this->mapWebRoutes();
 
         //
     }
+    protected function mapApiTwoRoutes()
+{
+    Route::prefix('apis')//<-- prefix in the url
+         ->middleware('api')//<-- api middleware (throttle and such check App\Http\Kernal.php)
+         ->namespace('App\Http\Controllers') //<-- you can modify the namespace of the controllers 
+         ->group(base_path('routes/apis.php'));//<-- file containing the routes
+}
 
     /**
      * Define the "web" routes for the application.

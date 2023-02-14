@@ -18,7 +18,7 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return Room::all();
+        return Room::get();
     }
 
     public function busy(Request $request)
@@ -62,9 +62,17 @@ class RoomController extends Controller
 
         $type = $request['type'];
 
-        $model = ($type == 'all') ? Room::where('user_id', $id) : Room::where('user_id', $id)->where('status', $type);
+        $room = Room::select();
 
-        return $model->get();
+        if($type != 'all'){
+            $room = $room->where('user_id', $id)->where('status', $type);
+        }else{
+            $room = $room->where('user_id', $id);
+        }
+
+        // $model = ($type == 'all') ? Room::where('user_id', $id) : Room::where('user_id', $id)->where('status', $type);
+
+        return $room->get();
 
     }
 

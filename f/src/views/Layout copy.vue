@@ -1,5 +1,13 @@
 <template>
   <v-app id="inspire">
+    <!-- <v-app-bar
+        v-if="(($route.path).includes('userhome')) ? true : false"
+        app
+        color="primary"
+        dark
+        src="https://picsum.photos/1920/1080?random"
+        prominent
+    > -->
     <v-app-bar        
         app
         color="primary"
@@ -20,8 +28,8 @@
 
 
       <v-spacer></v-spacer>
-      <img v-if="$i18n.locale == 'en'" src="/img/en-flag.png" class="mt-3" alt="PS" style=" width: 20px; ">
-      <img v-if="$i18n.locale == 'ru'" src="/img/ru-flag.png" class="mt-3" alt="PS" style=" width: 20px; ">
+      <img v-if="$i18n.locale == 'en'" src= "/img/en-flag.png" class="mt-3" alt="GWM" style=" width: 20px; ">
+      <img v-if="$i18n.locale == 'ru'" src= "/img/ru-flag.png" class="mt-3" alt="GWM" style=" width: 20px; ">
       <v-btn @click="en()" v-show="leng" text>
         <span class="mt-2">{{ languages[$i18n.locale] }}</span>
       </v-btn>
@@ -53,12 +61,50 @@
       </v-btn>
       <template v-slot:extension>
         <v-tabs align-with-title>
-          <v-tab  :to="'/userhome/0'">Bo'sh</v-tab>
-          <v-tab  :to="'/userhome/1'">Band</v-tab>
-          <v-tab  :to="'/userhome/all'">Hammasi</v-tab>
+<!--          <v-tab > <router-link :to="'/userhome/' + 0">Bo'sh</router-link> </v-tab>-->
+<!--          <v-tab > <router-link :to="'/userhome/' + 1">Band</router-link> </v-tab>-->
+<!--          <v-tab > <router-link :to="'/userhome/' + 'all'">Hammasi</router-link> </v-tab>-->
+
+          <v-tab  :to="'/userhome/' + 0">Bo'sh</v-tab>
+          <v-tab  :to="'/userhome/' + 1">Band</v-tab>
+          <v-tab  :to="'/userhome/' + 'all'">Hammasi</v-tab>
 
         </v-tabs>
       </template>
+    </v-app-bar>
+    <v-app-bar
+        v-if="(1) ? false : true"
+        app
+        flat
+        height="50"
+        color="blue-grey lighten-4"
+    >
+      <v-btn icon @click="drawer = !drawer">
+        <v-icon>mdi-menu</v-icon>
+      </v-btn>
+      <v-spacer></v-spacer>
+<!--      <v-menu offset-y>-->
+<!--      </v-menu>-->
+
+<!--      <img src= "/img/en-flag.png" alt="GWM" style=" width: 25px; ">-->
+      <img v-if="$i18n.locale == 'en'" src= "/img/en-flag.png" alt="GWM" style=" width: 25px; ">
+      <img v-if="$i18n.locale == 'ru'" src= "/img/ru-flag.png" alt="GWM" style=" width: 25px; ">
+      <v-btn @click="en()" v-show="leng" text>
+        {{ languages[$i18n.locale] }}
+      </v-btn>
+<!--      <img v-show="!leng" src="/img/ru-flag.png" alt="GWM" style=" width: 25px; "> -->
+      <v-btn @click="ru()" v-show="!leng" text>
+        {{ languages[$i18n.locale] }}
+      </v-btn>
+
+      <v-btn class="" icon color="blue-grey lighten-25">
+        <v-icon>mdi-account-circle</v-icon>
+      </v-btn>
+      <span>{{ user.username }}</span>
+      <v-btn icon color="red" @click="logout()">
+        <v-icon>mdi-exit-to-app</v-icon>
+      </v-btn>
+
     </v-app-bar>
     <v-navigation-drawer
         app
