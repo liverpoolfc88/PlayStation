@@ -24,7 +24,7 @@
     'APP_SAP_LOCATION' => NULL,
     'env' => 'local',
     'debug' => true,
-    'url' => 'http:10.142.62.218',
+    'url' => 'http:127.0.0.1',
     'asset_url' => NULL,
     'timezone' => 'Asia/Tashkent',
     'locale' => 'en',
@@ -485,7 +485,7 @@
       array (
         'driver' => 'local',
         'root' => 'D:\\OpenServer\\domains\\PlayStation\\b\\storage\\app/public',
-        'url' => 'http:10.142.62.218/storage',
+        'url' => 'http:127.0.0.1/storage',
         'visibility' => 'public',
       ),
       's3' => 
